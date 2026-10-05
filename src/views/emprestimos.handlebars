@@ -1,0 +1,72 @@
+<section class="emprestimos-page">
+  <h2>Empréstimos</h2>
+  <p>Cadastre um empréstimo e acompanhe os livros que estão emprestados.</p>
+
+  <form action="/emprestimos" method="POST" class="form-emprestimo">
+    <label for="alunoId">Aluno</label>
+    <select id="alunoId" name="alunoId" required>
+      <option value="">Selecione o aluno</option>
+      {{#each alunos}}
+        <option value="{{this.matricula}}">{{this.nome}}</option>
+      {{/each}}
+    </select>
+
+    <label for="livroId">Livro</label>
+    <select id="livroId" name="livroId" required>
+      <option value="">Selecione o livro</option>
+      {{#each livros}}
+        <option value="{{this.id_livro}}">{{this.titulo}}</option>
+      {{/each}}
+    </select>
+
+    <label for="dataEmprestimo">Data do empréstimo</label>
+    <input id="dataEmprestimo" type="date" name="dataEmprestimo" required />
+
+    <label for="dataDevolucao">Data de devolução</label>
+    <input id="dataDevolucao" type="date" name="dataDevolucao" required />
+
+    <button type="submit">Emprestar</button>
+  </form>
+
+  <h3>Empréstimos cadastrados</h3>
+  {{#if emprestimos.length}}
+    <div class="tabela-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Aluno</th>
+            <th>Livro</th>
+            <th>Empréstimo</th>
+            <th>Devolução</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each emprestimos}}
+            <tr>
+              <td>{{this.aluno.nome}}</td>
+              <td>{{this.livro.titulo}}</td>
+              <td>{{this.dataEmprestimo}}</td>
+              <td>{{this.dataDevolucao}}</td>
+              <td class="acoes">
+                <a class="btn-editar" href="/emprestimos/{{this.id_emprestimo}}/editar">Editar</a>
+
+                <form action="/emprestimos/{{this.id_emprestimo}}?_method=DELETE" method="POST">
+                  <button
+                    type="submit"
+                    class="btn-devolver"
+                    onclick="return confirm('Confirma a devolução deste livro?')"
+                  >
+                    Devolver
+                  </button>
+                </form>
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  {{else}}
+    <p class="vazio">Nenhum empréstimo cadastrado.</p>
+  {{/if}}
+</section>

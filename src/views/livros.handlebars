@@ -1,0 +1,81 @@
+<section class="livros-page">
+  <div class="page-heading">
+    <div>
+      <span class="eyebrow">Biblioteca</span>
+      <h2>Livros</h2>
+      <p>Cadastre e gerencie os livros disponíveis na escola.</p>
+    </div>
+  </div>
+
+  <form action="/livros" method="POST" class="form-livro">
+    <div class="campo">
+      <label for="titulo">Título</label>
+      <input id="titulo" type="text" name="titulo" placeholder="Ex.: Dom Casmurro" required />
+    </div>
+
+    <div class="campo">
+      <label for="autor">Autor</label>
+      <input id="autor" type="text" name="autor" placeholder="Nome do autor" required />
+    </div>
+
+    <div class="campo">
+      <label for="ano">Ano</label>
+      <input id="ano" type="number" name="ano" min="0" max="2100" placeholder="Ex.: 1899" required />
+    </div>
+
+    <div class="campo">
+      <label for="genero">Gênero</label>
+      <input id="genero" type="text" name="genero" placeholder="Ex.: Romance" required />
+    </div>
+
+    <button type="submit">+ Cadastrar livro</button>
+  </form>
+
+  <div class="tabela-container">
+    {{#if livros.length}}
+      <table>
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Ano</th>
+            <th>Gênero</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each livros}}
+            <tr>
+              <td><strong>{{this.titulo}}</strong></td>
+              <td>{{this.autor}}</td>
+              <td>{{this.ano}}</td>
+              <td>{{this.genero}}</td>
+              <td>
+                {{#if this.disponivel}}
+                  <span class="status disponivel">Disponível</span>
+                {{else}}
+                  <span class="status emprestado">Emprestado</span>
+                {{/if}}
+              </td>
+              <td class="acoes">
+                <a class="btn-editar" href="/livros/{{this.id_livro}}/editar">Editar</a>
+
+                {{#if this.disponivel}}
+                  <form action="/livros/{{this.id_livro}}?_method=DELETE" method="POST">
+                    <button class="btn-devolver" type="submit"
+                      onclick="return confirm('Deseja excluir este livro?')">
+                      Excluir
+                    </button>
+                  </form>
+                {{/if}}
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    {{else}}
+      <p class="vazio">Nenhum livro cadastrado. Use o formulário acima para cadastrar o primeiro.</p>
+    {{/if}}
+  </div>
+</section>

@@ -1,0 +1,36 @@
+<section class="livros-page">
+  <div class="page-heading">
+    <div>
+      <span class="eyebrow">Biblioteca</span>
+      <h2>Editar livro</h2>
+      <p>Atualize os dados do livro selecionado.</p>
+    </div>
+  </div>
+
+  <form action="/livros/{{livro.id_livro}}?_method=PUT" method="POST" class="form-livro">
+    <div class="campo">
+      <label for="titulo">Título</label>
+      <input id="titulo" type="text" name="titulo" value="{{livro.titulo}}" required />
+    </div>
+
+    <div class="campo">
+      <label for="autor">Autor</label>
+      <input id="autor" type="text" name="autor" value="{{livro.autor}}" required />
+    </div>
+
+    <div class="campo">
+      <label for="ano">Ano</label>
+      <input id="ano" type="number" name="ano" value="{{livro.ano}}" required />
+    </div>
+
+    <div class="campo">
+      <label for="genero">Gênero</label>
+      <input id="genero" type="text" name="genero" value="{{livro.genero}}" required />
+    </div>
+
+    <div class="acoes-form">
+      <button type="submit">Salvar alterações</button>
+      <a href="/livros">Cancelar</a>
+    </div>
+  </form>
+</section>

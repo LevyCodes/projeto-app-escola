@@ -1,0 +1,29 @@
+<p>estamos em alunos</p>
+
+<form action="/alunos" method="post">
+  <input type="text" name="nome" placeholder="Nome" />
+  <input type="number" name="idade" placeholder="Idade" />
+  <input type="number" name="nota" placeholder="Nota" />
+  <button type="submit">Cadastrar</button>
+</form>
+
+<main>
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Idade</th>
+        <th>Nota</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each alunos}}
+        <tr>
+          <td>{{this.nome}}</td>
+          <td>{{this.idade}}</td>
+          <td>{{this.nota}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</main>

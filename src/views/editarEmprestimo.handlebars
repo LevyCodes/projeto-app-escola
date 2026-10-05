@@ -1,0 +1,35 @@
+<section class="emprestimos-page">
+  <h2>Editar empréstimo ✏️</h2>
+  <p>Altere os dados do empréstimo selecionado.</p>
+
+  <form action="/emprestimos/{{emprestimo.id_emprestimo}}?_method=PUT" method="POST" class="form-emprestimo">
+    <label for="alunoId">Aluno</label>
+    <select id="alunoId" name="alunoId" required>
+      {{#each alunos}}
+        <option value="{{this.matricula}}" {{#if (eq this.matricula ../emprestimo.aluno.matricula)}}selected{{/if}}>
+          {{this.nome}}
+        </option>
+      {{/each}}
+    </select>
+
+    <label for="livroId">Livro</label>
+    <select id="livroId" name="livroId" required>
+      {{#each livros}}
+        <option value="{{this.id_livro}}" {{#if this.selecionado}}selected{{/if}}>
+          {{this.titulo}}
+        </option>
+      {{/each}}
+    </select>
+
+    <label for="dataEmprestimo">Data do empréstimo</label>
+    <input id="dataEmprestimo" type="date" name="dataEmprestimo" value="{{emprestimo.dataEmprestimo}}" required />
+
+    <label for="dataDevolucao">Data de devolução</label>
+    <input id="dataDevolucao" type="date" name="dataDevolucao" value="{{emprestimo.dataDevolucao}}" required />
+
+    <div class="acoes-form">
+      <button type="submit">Salvar alterações</button>
+      <a href="/emprestimos">Cancelar</a>
+    </div>
+  </form>
+</section>
